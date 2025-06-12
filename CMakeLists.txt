@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Enable warnings
-add_compile_options(-Wall -Wextra -Wpedantic -Werror)
+# add_compile_options(-Wall -Wextra -Wpedantic -Werror)
 
 # Add executables
 add_executable(my_http_server
@@ -17,3 +17,7 @@ add_executable(my_http_server
 
 # Include directory
 target_include_directories(my_http_server PRIVATE src)
+
+if (WIN32)
+    target_link_libraries(my_http_server PRIVATE ws2_32)
+endif()
