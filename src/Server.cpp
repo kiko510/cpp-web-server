@@ -17,14 +17,14 @@ Server::~Server()
 
 void Server::run()
 {
-	// 1. Initialize Winsock
+	//Initialize Winsock
     WSADATA wsaData;
     if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
         std::cerr << "WSAStartup failed.\n";
         return;
     }
 
-    // 2. Create socket
+    //Create socket
     m_listen_socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (m_listen_socket == INVALID_SOCKET) {
         std::cerr << "Socket creation failed.\n";
@@ -32,7 +32,7 @@ void Server::run()
         return;
     }
 
-    // 3. Bind
+    // Bind
     sockaddr_in server_addr{};
     server_addr.sin_family = AF_INET;
     server_addr.sin_port = htons(m_port);
@@ -45,7 +45,7 @@ void Server::run()
         return;
     }
 
-    // 4. Listen
+    // Listen
     if (listen(m_listen_socket, SOMAXCONN) == SOCKET_ERROR) {
         std::cerr << "Listen failed.\n";
         closesocket(m_listen_socket);
